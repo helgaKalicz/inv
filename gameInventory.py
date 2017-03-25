@@ -77,7 +77,19 @@ def import_inventory(inventory, filename="import_inventory.csv"):
 # called "export_inventory.csv". The file format is the same plain text 
 # with comma separated values (CSV).
 def export_inventory(inventory, filename="export_inventory.csv"):
+    import operator
+    inv = list(sorted(inventory.items(), key=operator.itemgetter(0)))
+    a = []
+    b = []
+    for i in range(len(inv)):
+        a.append(inv[i][0])
+        b.append(str(inv[i][1]))
+    loot = []
+    for i in range(len(a)):
+        for j in range(int(b[i])):
+            loot.append(a[i])
     with open(filename, "w") as f:
-        for i in inventory:
-            loot = f.write((i + ",") * inventory[i])
+        for i in range(len(loot)-1):
+            f.write((loot[i] + ","))
+        f.write(loot[len(loot)-1])
 print_table(inventory, order=None)
